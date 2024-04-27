@@ -29,6 +29,7 @@ public class Member {
      * @return A list of bibliographic artifacts matching the keyword.
      */
     public List<BibliographicArtifact> searchGlobalCollection(String keyword) {
+        //TO DO 
         // Implementation of the search method
         // Perform logic to search the global collection based on the keyword
         // For now, return an empty list
@@ -41,6 +42,7 @@ public class Member {
      * @return True if the reservation is successful, false otherwise.
      */
     public boolean reserveItem(BibliographicArtifact item) {
+        //TO DO 
         // Implementation of the reservation
         // Perform logic to reserve an item
         // Check if the item is available for reservation and update its state
@@ -59,6 +61,7 @@ public class Member {
      * @return The loan object representing the borrowed item, or null if the item cannot be borrowed.
      */
     public Loan borrowItem(BibliographicArtifact item) {
+        //TO DO 
         // Implementation of borrowing an item
         // Perform logic to borrow an item
         // Check if the item is available for loan, update its state, and create a loan record
@@ -83,6 +86,7 @@ public class Member {
      * @return True if the return is successful, false otherwise.
      */
     public boolean returnItem(Loan loan) {
+        //TO DO 
         // Implementation of returning an item
         // Perform logic to return a borrowed item
         // Update the item's state and the loan record
