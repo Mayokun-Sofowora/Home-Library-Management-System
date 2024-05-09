@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents a bibliographic artifact in the library system.
  */
-@Entity
+@MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED) // We use JOINED strategy for inheritance
 public abstract class BibliographicArtifact {
     @Id
