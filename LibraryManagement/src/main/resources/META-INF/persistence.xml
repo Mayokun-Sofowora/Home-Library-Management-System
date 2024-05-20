@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="my_unit" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>model.BibliographicA</class>
+    <non-jta-data-source>java:app/HomeLibrary</non-jta-data-source>
+    <class>model.Author</class>
+    <class>model.BibliographicArtifact</class>
+    <class>model.Book</class>
+    <class>model.BookshelfLocation</class>
+    <class>model.Genre</class>
+    <class>model.Journal</class>
+    <class>model.Loan</class>
+    <class>model.Member</class>
     <properties>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:derby://localhost:1527/LibraryManagement"/>
-      <property name="jakarta.persistence.jdbc.user" value="app"/>
-      <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="jakarta.persistence.jdbc.password" value="app"/>
-      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/homelibrary?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
+      <property name="jakarta.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="jakarta.persistence.jdbc.password" value="root"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
-
