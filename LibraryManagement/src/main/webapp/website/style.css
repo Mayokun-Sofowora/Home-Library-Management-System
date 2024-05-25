@@ -19,6 +19,20 @@
 	}
 }
 
+@font-face {
+    font-family: Montserrat;
+    src: url('../media/Montserrat-Regular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url('../media/Montserrat-Bold.ttf') format('ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
 body {
 	background: #cfdfe5;
 	color: #0076a3;
