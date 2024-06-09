@@ -42,7 +42,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
-        book.setArtifactId(id);
+        book.setId(id);
         Book updatedBook = bookService.saveOrUpdateBook(book);
         return new ResponseEntity<>(updatedBook, HttpStatus.OK);
     }

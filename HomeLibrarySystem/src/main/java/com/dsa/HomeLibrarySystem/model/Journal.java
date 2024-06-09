@@ -22,22 +22,6 @@ public class Journal extends BibliographicArtifact {
     // Getters and Setters
 
     /**
-     * Retrieves the unique identifier of the journal.
-     * @return The journal identifier.
-     */
-    public int getJournalId() {
-        return journalId;
-    }
-
-    /**
-     * Sets the unique identifier of the journal.
-     * @param journalId The journal identifier to be set.
-     */
-    public void setJournalId(int journalId) {
-        this.journalId = journalId;
-    }
-
-    /**
      * Retrieves the International Standard Serial Number (ISSN) of the journal.
      * @return The ISSN of the journal.
      */

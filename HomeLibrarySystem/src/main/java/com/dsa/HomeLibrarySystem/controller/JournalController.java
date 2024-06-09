@@ -42,7 +42,7 @@ public class JournalController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Journal> updateJournal(@PathVariable Long id, @RequestBody Journal journal) {
-        journal.setArtifactId(id);
+        journal.setId(id);
         Journal updatedJournal = journalService.saveOrUpdateJournal(journal);
         return new ResponseEntity<>(updatedJournal, HttpStatus.OK);
     }
