@@ -126,15 +126,16 @@
 	<div class="container d-flex justify-content-center mt-3">
 		<form class="needs-validation" style="max-width: 650px;" novalidate="">
 			<div class="row g-3">
-				<div class="col-12">
+				<div class="col-12 mb-2" style="min-width: 400px;">
 					<h3>Search your book:</h3>
 					<div class="input-group has-validation">
-						<input type="text" class="form-control" id="username" placeholder="Name" required="">
+						<input type="text" class="form-control" id="booksearch" placeholder="Name" required="">
 						<div class="invalid-feedback">
-							Your username is required.
+							Please write the name of the book you want to find.
 						</div>
 					</div>
 				</div>
+<!--
 				<div class="col-md-3 col-6">
 					<select class="form-select" id="genre">
 						<option value="">Genre...</option>
@@ -189,11 +190,14 @@
 						<input type="text" class="form-control" id="yearTo" placeholder="Year To">
 					</div>
 				</div>
+-->
 			</div>
+<!--
 			<div class="my-2 form-check">
 				<input type="checkbox" class="form-check-input" id="isCensoredIncluded">
 				<label class="form-check-label" for="">Include censored books<span style="color: red;"></span></label>
 			</div>
+-->
 			<div class="d-flex justify-content-center advanced-search-button-custom">
 				<button class="w-50 btn btn-primary btn-lg" type="submit">Search</button>
 			</div>

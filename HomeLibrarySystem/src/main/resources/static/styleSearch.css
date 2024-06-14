@@ -155,3 +155,8 @@ select option {
 	color: #0076a3;
 	transition: all 0.5s ease-out;
 }
+
+.card {
+	background: #fff;
+	border-color: none;
+}
