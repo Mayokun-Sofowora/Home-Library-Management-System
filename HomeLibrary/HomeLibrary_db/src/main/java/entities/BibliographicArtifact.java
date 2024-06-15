@@ -18,16 +18,16 @@ public abstract class BibliographicArtifact {
     private String type;
     private int availableCopies;
     private String language;
+    
+    @Column(name = "publication_year")
     private int year;
     private boolean isCensored;
 
     @ManyToMany(mappedBy = "authoredArtifacts")
     private List<Author> authors;
-//
-//    @ManyToMany(mappedBy = "genreArtifacts")
-    @ElementCollection
-    private Set<String> genres;
-    //private List<Genre> genres;
+
+    @ManyToMany(mappedBy = "genreArtifacts")
+    private List<Genre> genres;
 
     @ManyToOne
     private BookshelfLocation location;
@@ -112,11 +112,11 @@ public abstract class BibliographicArtifact {
         this.authors = authors;
     }
 
-    public Set<String> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(Set<String> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 

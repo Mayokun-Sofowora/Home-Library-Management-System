@@ -6,7 +6,6 @@ package com.dsa.homelibrary_db;
 
 import entities.*;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,6 +18,47 @@ import javax.persistence.Query;
  */
 public class Main {
     public static void main(String[] args) {
+       Main main = new Main();
+
+        // Create Genre Objects
+        Genre genre1 = new Genre();
+        genre1.setName("Classic");
+        
+        Genre genre2 = new Genre();
+        genre1.setName("Psychological Fiction");
+        
+        Genre genre3 = new Genre();
+        genre1.setName("Mystery");
+        
+        Genre genre4 = new Genre();
+        genre1.setName("Fantasy");
+        
+        Genre genre5 = new Genre();
+        genre1.setName("Children's literature");
+        
+        Genre genre6 = new Genre();
+        genre1.setName("Adventure");
+        
+        Genre genre7 = new Genre();
+        genre1.setName("Literary fiction");
+        
+        Genre genre8 = new Genre();
+        genre1.setName("Philosophical Fiction");
+        
+        Genre genre9 = new Genre();
+        genre1.setName("Drama");
+
+        main.persistObject(genre1);
+        main.persistObject(genre2);
+        main.persistObject(genre3);
+        main.persistObject(genre4);
+        main.persistObject(genre5);
+        main.persistObject(genre6);
+        main.persistObject(genre7);
+        main.persistObject(genre8);
+        main.persistObject(genre9);
+        
+        
         // Create and persist a few authors
         Author author1 = new Author();
         author1.setName("C.S Lewis");
@@ -36,7 +76,6 @@ public class Main {
         author4.setName("J.K. Rowling");
         author4.setCountry("United Kingdom");
         
-        Main main = new Main();
         
         main.persistObject(author1);
         main.persistObject(author2);
@@ -55,7 +94,7 @@ public class Main {
                                  "An engaging read that I couldn't put down!", 
                                  "Would highly recommend to anyone who loves a good mystery."));
         book1.setAuthors(List.of(author1)); // Fyodor Dostoevsky
-        book1.setGenres(Set.of("Classic", "Psychological Fiction", "Mystery"));
+        book1.setGenres(List.of(genre1, genre2, genre3));
 
         Book book2 = new Book();
         book2.setTitle("The Chronicles of Narnia");
@@ -68,7 +107,7 @@ public class Main {
                                  "Beautifully written, with a profound sense of wonder.",
                                  "A timeless tale of adventure and courage."));
         book2.setAuthors(List.of(author1)); // C.S. Lewis
-        book2.setGenres(Set.of("Fantasy", "Children's literature"));
+        book2.setGenres(List.of(genre4, genre5));
         
         Book book3 = new Book();
         book3.setTitle("Mrs. Dalloway");
@@ -77,7 +116,7 @@ public class Main {
         book3.setAvailableCopies(2);
         book3.setReviews(List.of("Engaging narrative.", "Classic literature."));
         book3.setAuthors(List.of(author3)); // Virginia Woolf
-        book3.setGenres(Set.of("Literary fiction", "Classic"));
+        book3.setGenres(List.of(genre7, genre1));
         
         Book book4 = new Book();
         book4.setTitle("Harry Potter and the Philosopher's Stone");
@@ -87,7 +126,7 @@ public class Main {
         book4.setReviews(List.of("A magical start to an epic series!", 
                                  "Loved every bit of it. A true classic."));
         book4.setAuthors(List.of(author2)); // J.K. Rowling
-        book4.setGenres(Set.of("Fantasy", "Adventure"));
+        book4.setGenres(List.of(genre4, genre6));
         
         Book book5 = new Book();
         book5.setTitle("The Brothers Karamazov");
@@ -98,7 +137,7 @@ public class Main {
                                  "Dostoevsky's masterpiece.", 
                                  "An intense and thought-provoking read."));
         book5.setAuthors(List.of(author1)); // Fyodor Dostoevsky
-        book5.setGenres(Set.of("Classic", "Philosophical Fiction", "Drama"));
+        book5.setGenres(List.of(genre1, genre8));
 
         main.persistObject(book1);
         main.persistObject(book2);
@@ -123,7 +162,10 @@ public class Main {
 
         main.persistObject(journal1);
         main.persistObject(journal2);
+        
 
+        
+        
         // Find and print authors
         main.findAuthors();
 
