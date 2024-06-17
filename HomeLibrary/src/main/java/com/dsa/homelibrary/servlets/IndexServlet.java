@@ -25,12 +25,12 @@ public class IndexServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/contact.html");
                     break;
                 default:
-                    // Si la opción no coincide, redirige al index
+                    // redirect to index
                     response.sendRedirect(request.getContextPath() + "/index.html");
                     break;
             }
         } else {
-            // Si no se proporciona un destino válido, redirige al index
+            // redirect to index
             response.sendRedirect(request.getContextPath() + "/index.html");
         }
     }
