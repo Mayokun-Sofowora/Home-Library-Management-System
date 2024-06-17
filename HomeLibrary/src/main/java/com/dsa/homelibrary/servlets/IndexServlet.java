@@ -24,6 +24,9 @@ public class IndexServlet extends HttpServlet {
                 case "contact":
                     response.sendRedirect(request.getContextPath() + "/contact.html");
                     break;
+                case"logout":
+                    response.sendRedirect(request.getContextPath() + "/login.html");
+                    break;       
                 default:
                     // redirect to index
                     response.sendRedirect(request.getContextPath() + "/index.html");
