@@ -11,6 +11,7 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long genreId;
+    @Column(unique = true, nullable = false)
     private String name;
 
     @ManyToMany

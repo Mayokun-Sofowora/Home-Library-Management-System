@@ -11,7 +11,9 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long authorId;
+    @Column(unique = true, nullable = false)
     private String name;
+    @Column(nullable = false)
     private String country;
 
     @ManyToMany

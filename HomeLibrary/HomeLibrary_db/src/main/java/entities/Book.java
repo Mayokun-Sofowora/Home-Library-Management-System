@@ -8,6 +8,7 @@ import java.util.List;
  */
 @Entity
 public class Book extends BibliographicArtifact {
+    @Column(unique = true, nullable = false)
     private int ISBN;
     private int totalCopies;
     private int availableCopies;

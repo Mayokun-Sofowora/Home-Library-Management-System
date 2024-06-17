@@ -14,7 +14,9 @@ public abstract class BibliographicArtifact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, nullable = false)
     private String title;
+    
     private String type;
     private int availableCopies;
     private String language;
