@@ -29,12 +29,12 @@ public class IndexServlet extends HttpServlet {
                     break;       
                 default:
                     // redirect to index
-                    response.sendRedirect(request.getContextPath() + "/index.html");
+                    response.sendRedirect(request.getContextPath() + "/home.html");
                     break;
             }
         } else {
             // redirect to index
-            response.sendRedirect(request.getContextPath() + "/index.html");
+            response.sendRedirect(request.getContextPath() + "/home.html");
         }
     }
 }
