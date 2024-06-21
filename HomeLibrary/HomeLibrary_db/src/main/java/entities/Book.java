@@ -10,6 +10,7 @@ import java.util.List;
 public class Book extends BibliographicArtifact {
     @Column(unique = true, nullable = false)
     private int ISBN;
+    private String title;
     private int totalCopies;
     private int availableCopies;
     @ElementCollection

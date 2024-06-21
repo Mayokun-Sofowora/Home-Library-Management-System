@@ -163,8 +163,14 @@ public class Main {
         main.persistObject(journal1);
         main.persistObject(journal2);
         
-
         
+        String keyword = "Harry"; // Example keyword to search
+        List<Book> foundBooks = main.searchBooks(keyword);
+        for (Book book : foundBooks) {
+            System.out.println("Found book: " + book.getTitle() + ", ISBN: " + book.getISBN() +
+                    ", Total Copies: " + book.getTotalCopies() + ", Available Copies: " + book.getAvailableCopies() +
+                    ", Reviews: " + book.getReviews());
+        }
         
         // Find and print authors
         main.findAuthors();
@@ -245,5 +251,24 @@ public class Main {
         } finally {
             em.close();
         }
+    }
+    
+        public List<Book> searchBooks(String keyword) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.DSA_HomeLibrary_db_jar_PU");
+        EntityManager em = emf.createEntityManager();
+        List<Book> bookList = null;
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("SELECT b FROM Book b WHERE b.title LIKE :keyword");
+            query.setParameter("keyword", "%" + keyword + "%");
+            bookList = query.getResultList();
+            em.getTransaction().commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+        return bookList;
     }
 }
