@@ -11,9 +11,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-    @Column(unique = true, nullable = false)
     private String name;
-    @Column(unique = true, nullable = false)
     private String email;
 
     @OneToMany(mappedBy = "borrower")

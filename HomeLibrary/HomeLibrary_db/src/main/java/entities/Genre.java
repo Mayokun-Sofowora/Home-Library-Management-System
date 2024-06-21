@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
@@ -7,11 +8,10 @@ import java.util.List;
  * Represents a genre in the library system.
  */
 @Entity
-public class Genre {
+public class Genre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long genreId;
-    @Column(unique = true, nullable = false)
     private String name;
 
     @ManyToMany

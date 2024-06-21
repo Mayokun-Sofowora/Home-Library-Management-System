@@ -7,7 +7,6 @@ entities\Book_.class
 entities\Book.class
 entities\Journal.class
 entities\Loan.class
-entities\Person_.class
 entities\Author.class
 entities\Genre_.class
 entities\Member_.class
@@ -16,4 +15,3 @@ entities\Member.class
 entities\Loan_.class
 entities\Author_.class
 entities\Genre.class
-entities\Person.class
