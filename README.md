@@ -1,7 +1,7 @@
 # Home-Library-Management-System
 DSAA semester project 
 
-# Running the Application with IntelliJ
+## Running the Application with IntelliJ
 
 ### Installing Tomcat
 To run the application on IntelliJ:
