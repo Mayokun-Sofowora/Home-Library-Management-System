@@ -11,8 +11,6 @@ To run the application in IntelliJ:
 1. Install Apache Tomcat from [https://tomcat.apache.org/download-10.cgi](https://tomcat.apache.org/download-10.cgi).
 2. Download one of the core files and add it to the configuration in the IDE.
 
-## For the Database
-
 ### Setting Up Database Connection
 In the persistence tool window of IntelliJ:
 
