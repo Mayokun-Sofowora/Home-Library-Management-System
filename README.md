@@ -1,17 +1,41 @@
-# Home-Library-Management-System
-DSAA semester project 
+# User Manual
 
-## Running the Application with IntelliJ
+## How to Use the Application
 
-### Installing Tomcat
-To run the application on IntelliJ:
+Follow these steps to get started with the application:
 
-1. Install Apache Tomcat from [https://tomcat.apache.org/download-10.cgi](https://tomcat.apache.org/download-10.cgi).
-2. Download one of the core files and add it to the configuration in the IDE.
+### 1. Clone the Repository
 
-### Setting Up Database Connection
-In the persistence tool window of IntelliJ:
+First, clone the repository from GitHub to your local machine. Open your terminal and run:
 
-1. Right-click on the "default" persistence unit.
-2. Select "Assign data sources...".
-3. Assign our database "myDB" to it.
+```bash
+
+git clone <repository-url>
+
+ ```
+### 2. Configure Your Database
+
+You need to configure the application to connect to your MySQL database. Follow these steps:
+
+1. Open the application.properties file located in the src/main/resources directory of your project.
+
+2. Edit the database connection settings. Update the following properties with your MySQL server details:
+
+```properties
+spring.datasource.url=jdbc:mysql://<database-url>:<port>/<database-name>
+spring.datasource.username=<your-database-username>
+spring.datasource.password=<your-database-password>
+ ```
+Replace <data> with your database credentials.
+
+### 3. Run the Application
+
+After configuring the database, you can start the application.
+
+Open your web browser and go to the following URL:
+
+```plaintext
+  http://localhost:8080
+ ```
+
+The application should be running, and you will be able to access its features.
