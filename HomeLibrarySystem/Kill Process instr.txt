@@ -1,0 +1,3 @@
+netstat -ano | findstr :8082
+taskkill /F /PID <PID>
+taskkill /F /PID 7200
