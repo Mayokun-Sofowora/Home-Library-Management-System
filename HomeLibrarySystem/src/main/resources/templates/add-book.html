@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Library Management System - Add Book</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="/css/styles.css">
     </head>
     <body>
         <header>
@@ -16,7 +16,6 @@
                         version="1.1"
                         id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
                         x="0px"
                         y="0px"
                         viewBox="0 0 1075 295"
@@ -128,27 +127,25 @@
                             <a class="nav-link" href="/loans">Loans</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="/add-book">Books</a>
+                            <a class="nav-link" href="/books">Books</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="/add-journal">Journals</a>
+                            <a class="nav-link" href="/journals">Journals</a>
                         </li>
                         <li class="nav-item mt-1 mx-3">
                             <a href="/logout" class="btn btn-danger">Logout</a>
                         </li>
                     </ul>
-                    <!--
-                    <span class="navbar-text" id="welcomeMessage">
-                         Dynamic welcome message will be inserted here 
-                    </span> 
-                    -->
+<!--                    <span class="navbar-text" id="welcomeMessage">-->
+<!--                         Dynamic welcome message will be inserted here -->
+<!--                    </span>-->
                 </div>
             </nav>
         </header>
 
         <div class="container mt-2">
             <h2>Add New Book</h2>
-            <form id="bookForm" action="/books/add" method="post">
+            <form id="bookForm">
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" class="form-control" required>
@@ -178,7 +175,6 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
             $(document).ready(function() {
-
                 $('#bookForm').on('submit', function(event) {
                     event.preventDefault();
                     let form = $(this);
@@ -189,31 +185,29 @@
                         totalCopies: $('#totalCopies').val(),
                         availableCopies: $('#availableCopies').val()
                     };
-
                     $.ajax({
-                        url: form.attr('action'),
+                        url: "/api/books",
                         type: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(formData),
                         success: function(response) {
                             alert('Book added successfully!');
-                            window.location.href = '/book-details?id=' + response.id;
+                            window.location.href = "/books";
                         },
                         error: function() {
                             alert('Error adding book.');
                         }
                     });
                 });
-                // Fetch the current user's information and update the welcome message
                 $.ajax({
-                    url: '/api/members/current',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(user) {
-                        $('#welcomeMessage').text(`Welcome, ${user.name}`);
+                    url: `/api/auth/current-user`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (user) {
+                        $("#welcomeMessage").text(`Welcome, ${user.name}`);
                     },
-                    error: function() {
-                        $('#welcomeMessage').text('Welcome');
+                    error: function () {
+                        $("#welcomeMessage").text("Welcome");
                     }
                 });
             });

@@ -48,7 +48,10 @@ class BookServiceTest {
         book.setAuthors(new ArrayList<>());
         book.setTotalCopies(5);
         book.setAvailableCopies(5);
-        book.setReviews(new ArrayList<>());
+        Review review = new Review();
+        review.setContent("This is a great book!");
+        review.setReviewer("John Doe");
+        book.addReview(review);
         BookshelfLocation location = new BookshelfLocation();
         location.setId(100L);
         location.setPosition("Test Location");

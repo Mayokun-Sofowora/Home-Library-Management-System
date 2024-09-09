@@ -48,7 +48,19 @@ public class BookshelfLocationService {
                 new BookshelfLocation(14L, "Aisle 4", "Row 2"),
                 new BookshelfLocation(15L, "Aisle 5", "Row 3")
         );
-        bookshelfLocationRepository.saveAll(locations);
+
+        for (BookshelfLocation location : locations) {
+            Optional<BookshelfLocation> existingLocation = bookshelfLocationRepository
+                    .findBySectionAndShelfNumberAndPosition(
+                            location.getSection(),
+                            location.getShelfNumber(),
+                            location.getPosition()
+                    );
+
+            if (existingLocation.isEmpty()) {
+                bookshelfLocationRepository.save(location);
+            }
+        }
     }
 
     public void setLocation(Long artifactId, Long locationId) {
@@ -91,5 +103,9 @@ public class BookshelfLocationService {
 
     public void deleteBookshelfLocationById(Long bookshelfLocationId) {
         bookshelfLocationRepository.deleteById(bookshelfLocationId);
+    }
+
+    public Optional<BookshelfLocation> getBookshelfLocation(String section, Long shelfNumber, String position) {
+        return bookshelfLocationRepository.findBySectionAndShelfNumberAndPosition(section, shelfNumber, position);
     }
 }

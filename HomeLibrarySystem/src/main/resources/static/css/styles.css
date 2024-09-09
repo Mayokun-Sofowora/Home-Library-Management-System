@@ -160,7 +160,7 @@ header .dropdown-item:hover {
     position: absolute;
     width: 98%;
     height: 98%;
-    background-image: url('/images/background.jpg');
+    background-image: url('../images/background.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;

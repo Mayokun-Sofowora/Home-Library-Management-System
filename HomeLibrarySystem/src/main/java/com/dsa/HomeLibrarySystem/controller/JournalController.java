@@ -5,14 +5,13 @@ import com.dsa.HomeLibrarySystem.service.JournalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/journals")
+@RequestMapping("/api/journals")
 public class JournalController {
 
     private final JournalService journalService;
@@ -22,29 +21,21 @@ public class JournalController {
         this.journalService = journalService;
     }
 
+    // Fetch all journals
     @GetMapping
     public ResponseEntity<List<Journal>> getAllJournals() {
         List<Journal> journals = journalService.getAllJournals();
         return new ResponseEntity<>(journals, HttpStatus.OK);
     }
 
-    @GetMapping("/searchJournals")
+    // Search journals by a query string
+    @GetMapping("/search")
     public ResponseEntity<List<Journal>> searchJournals(@RequestParam String query) {
         List<Journal> journals = journalService.searchJournals(query);
         return new ResponseEntity<>(journals, HttpStatus.OK);
     }
 
-    @GetMapping("/journals/{id}")
-    public String viewJournalDetails(@PathVariable Long id, Model model) {
-        Optional<Journal> journal = journalService.getJournalById(id);
-        if (journal.isPresent()) {
-            model.addAttribute("journal", journal.get());
-            return "journal-details";
-        } else {
-            return "error"; // handle the error case appropriately
-        }
-    }
-
+    // Fetch journal by ID
     @GetMapping("/{id}")
     public ResponseEntity<Journal> getJournalById(@PathVariable Long id) {
         Optional<Journal> journal = journalService.getJournalById(id);
@@ -52,18 +43,14 @@ public class JournalController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-//    @PostMapping
-//    public ResponseEntity<Journal> createJournal(@RequestBody Journal journal) {
-//        Journal savedJournal = journalService.saveOrUpdateJournal(journal);
-//        return new ResponseEntity<>(savedJournal, HttpStatus.CREATED);
-//    }
-
-    @PostMapping("/add")
+    // Add a new journal
+    @PostMapping
     public ResponseEntity<Journal> addJournal(@RequestBody Journal journal) {
         Journal savedJournal = journalService.saveOrUpdateJournal(journal);
         return new ResponseEntity<>(savedJournal, HttpStatus.CREATED);
     }
 
+    // Update an existing journal
     @PutMapping("/{id}")
     public ResponseEntity<Journal> updateJournal(@PathVariable Long id, @RequestBody Journal journal) {
         journal.setId(id);
@@ -71,6 +58,7 @@ public class JournalController {
         return new ResponseEntity<>(updatedJournal, HttpStatus.OK);
     }
 
+    // Delete a journal by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteJournal(@PathVariable Long id) {
         journalService.deleteJournalById(id);

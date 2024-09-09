@@ -125,22 +125,16 @@
                             <a class="nav-link" href="/loans">Loans</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="/add-book">Books</a>
+                            <a class="nav-link" href="/books">Books</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="/add-journal">Journals</a>
+                            <a class="nav-link" href="/journals">Journals</a>
                         </li>
-                        <!--
-                        <li class="nav-item mt-1 mx-3">
-                            <a href="/logout" class="btn btn-danger">Logout</a>
-                        </li>
-                        -->
+
                     </ul>
-                    <!--
-                    <span class="navbar-text" id="welcomeMessage">
-                         Dynamic welcome message will be inserted here 
-                    </span> 
-                    -->
+<!--                    <span class="navbar-text" id="welcomeMessage">-->
+<!--                         Dynamic welcome message will be inserted here -->
+<!--                    </span>-->
                 </div>
             </nav>
         </header>
@@ -207,7 +201,7 @@
             $(document).ready(function () {
                 // Fetch the current user's information and update the welcome message
                 $.ajax({
-                    url: "/api/members/current",
+                    url: `/api/auth/current-user`,
                     type: "GET",
                     dataType: "json",
                     success: function (user) {

@@ -1,9 +1,6 @@
 package com.dsa.HomeLibrarySystem.service;
 
-import com.dsa.HomeLibrarySystem.model.Author;
-import com.dsa.HomeLibrarySystem.model.BibliographicArtifact;
-import com.dsa.HomeLibrarySystem.model.Book;
-import com.dsa.HomeLibrarySystem.model.BookshelfLocation;
+import com.dsa.HomeLibrarySystem.model.*;
 import com.dsa.HomeLibrarySystem.repository.AuthorRepository;
 import com.dsa.HomeLibrarySystem.repository.BookRepository;
 import org.json.JSONArray;
@@ -22,18 +19,16 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final BookshelfLocationService bookshelfLocationService;
-
-    private RestTemplate restTemplate; // New field
+    private RestTemplate restTemplate;
 
     @Autowired
     public BookService(BookRepository bookRepository, AuthorRepository authorRepository, BookshelfLocationService bookshelfLocationService) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.bookshelfLocationService = bookshelfLocationService;
-        this.restTemplate = new RestTemplate(); // Initialize RestTemplate by default
+        this.restTemplate = new RestTemplate();
     }
 
-    // Setter for RestTemplate
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -73,7 +68,9 @@ public class BookService {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
         if (bookOptional.isPresent()) {
             Book book = bookOptional.get();
-            BibliographicArtifact.Review review = new BibliographicArtifact.Review(reviewContent, reviewer);
+            Review review = new Review();
+            review.setContent(reviewContent);
+            review.setReviewer(reviewer);
             book.getReviews().add(review);
             bookRepository.save(book);
         }
@@ -85,68 +82,65 @@ public class BookService {
         List<Book> books = new ArrayList<>();
 
         JSONObject jsonResponse = new JSONObject(response);
-        JSONArray items = jsonResponse.getJSONArray("items");
+        JSONArray items = jsonResponse.optJSONArray("items");
 
-        // Fetch a default location
         BookshelfLocation defaultLocation = bookshelfLocationService.getBookshelfLocationById(1L)
                 .orElse(new BookshelfLocation(1L, "Default Aisle", "Default Row"));
 
-        for (int i = 0; i < items.length(); i++) {
-            JSONObject item = items.getJSONObject(i);
-            JSONObject volumeInfo = item.getJSONObject("volumeInfo");
+        if (items != null) {
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.getJSONObject(i);
+                JSONObject volumeInfo = item.getJSONObject("volumeInfo");
 
-            String title = volumeInfo.optString("title");
+                String title = volumeInfo.optString("title");
 
-            // Handle authors
-            JSONArray authorsArray = volumeInfo.optJSONArray("authors");
-            List<Author> authors = new ArrayList<>();
-            if (authorsArray != null) {
-                for (int j = 0; j < authorsArray.length(); j++) {
-                    String authorName = authorsArray.getString(j);
-                    Author author = authorRepository.findByName(authorName)
-                            .orElseGet(() -> {
-                                Author newAuthor = new Author();
-                                newAuthor.setName(authorName);
-                                return authorRepository.save(newAuthor); // Save new author to repository
-                            });
-                    authors.add(author);
-                }
-            }
-
-            // Handle ISBN
-            JSONArray industryIdentifiers = volumeInfo.optJSONArray("industryIdentifiers");
-            Long isbn = null;
-            if (industryIdentifiers != null) {
-                for (int j = 0; j < industryIdentifiers.length(); j++) {
-                    JSONObject identifier = industryIdentifiers.getJSONObject(j);
-                    if (identifier.getString("type").equals("ISBN_13")) {
-                        try {
-                            isbn = Long.parseLong(identifier.getString("identifier"));
-                        } catch (NumberFormatException e) {
-                            isbn = null;
-                        }
-                        break;
+                JSONArray authorsArray = volumeInfo.optJSONArray("authors");
+                List<Author> authors = new ArrayList<>();
+                if (authorsArray != null) {
+                    for (int j = 0; j < authorsArray.length(); j++) {
+                        String authorName = authorsArray.getString(j);
+                        Author author = authorRepository.findByName(authorName)
+                                .orElseGet(() -> {
+                                    Author newAuthor = new Author();
+                                    newAuthor.setName(authorName);
+                                    return authorRepository.save(newAuthor);
+                                });
+                        authors.add(author);
                     }
                 }
-            }
-            if (isbn == null) {
-                continue;
-            }
 
-            // Generate totalCopies and availableCopies
-            Random random = new Random();
-            int totalCopies = random.nextInt(10) + 1; // Random between 1 and 10
-            int availableCopies = totalCopies; // Default to totalCopies if not provided
+                JSONArray industryIdentifiers = volumeInfo.optJSONArray("industryIdentifiers");
+                Long isbn = null;
+                if (industryIdentifiers != null) {
+                    for (int j = 0; j < industryIdentifiers.length(); j++) {
+                        JSONObject identifier = industryIdentifiers.getJSONObject(j);
+                        if (identifier.getString("type").equals("ISBN_13")) {
+                            try {
+                                isbn = Long.parseLong(identifier.getString("identifier"));
+                            } catch (NumberFormatException e) {
+                                isbn = null;
+                            }
+                            break;
+                        }
+                    }
+                }
+                if (isbn == null) {
+                    continue;
+                }
 
-            // Creating the book object
-            Book book = new Book();
-            book.setTitle(title);
-            book.setAuthors(authors);
-            book.setISBN(isbn);
-            book.setTotalCopies(totalCopies);
-            book.setAvailableCopies(availableCopies);
-            book.setLocation(defaultLocation);
-            books.add(book);
+                Random random = new Random();
+                int totalCopies = random.nextInt(10) + 1;
+                int availableCopies = totalCopies;
+
+                Book book = new Book();
+                book.setTitle(title);
+                book.setAuthors(authors);
+                book.setISBN(isbn);
+                book.setTotalCopies(totalCopies);
+                book.setAvailableCopies(availableCopies);
+                book.setLocation(defaultLocation);
+                books.add(book);
+            }
         }
 
         return books;

@@ -128,20 +128,18 @@
                             <a class="nav-link" href="/loans">Loans</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="/add-book">Books</a>
+                            <a class="nav-link" href="/books">Books</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="/add-journal">Journals</a>
+                            <a class="nav-link" href="/journals">Journals</a>
                         </li>
                         <li class="nav-item mt-1 mx-3">
                             <a href="/logout" class="btn btn-danger">Logout</a>
                         </li>
                     </ul>
-                    <!--
-                    <span class="navbar-text" id="welcomeMessage">
-                         Dynamic welcome message will be inserted here 
-                    </span> 
-                    -->
+<!--                    <span class="navbar-text" id="welcomeMessage">-->
+<!--                       Welcome-->
+<!--                    </span>-->
                 </div>
             </nav>
         </header>
@@ -165,10 +163,10 @@
                     type: "GET",
                     dataType: "json",
                     success: function (members) {
-                        var membersList = $("#membersList");
+                        let membersList = $("#membersList");
                         membersList.empty(); // Clear existing content
                         members.forEach(function (member) {
-                            var memberItem = `
+                            let memberItem = `
                         <a href="#" class="list-group-item list-group-item-action">
                             <h5 class="mb-1">${member.name}</h5>
                             <p class="mb-1">Email: ${member.email}</p>
@@ -182,17 +180,16 @@
                         alert("Failed to load members.");
                     }
                 });
-
                 // Fetch the current user's information and update the welcome message
                 $.ajax({
-                    url: "/api/members/current", // Adjust URL if needed
+                    url: `/api/auth/current-user`,
                     type: "GET",
                     dataType: "json",
                     success: function (user) {
                         $("#welcomeMessage").text(`Welcome, ${user.name}`);
                     },
                     error: function () {
-                        $("#welcomeMessage").text("Welcome");
+                        $("#welcomeMessage").text(`Welcome`);
                     }
                 });
             });

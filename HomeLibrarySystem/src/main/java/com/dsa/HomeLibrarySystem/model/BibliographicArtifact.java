@@ -2,9 +2,7 @@ package com.dsa.HomeLibrarySystem.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a bibliographic artifact in the library system.
@@ -23,7 +21,6 @@ public abstract class BibliographicArtifact {
     private int availableCopies;
     private String language;
 
-    @Column(name = "publication_year")
     private int year;
 
     private boolean isCensored;
@@ -31,59 +28,11 @@ public abstract class BibliographicArtifact {
     @ManyToMany(mappedBy = "authoredArtifacts")
     private List<Author> authors;
 
-    @ManyToMany(mappedBy = "genreArtifacts")
-    private List<Genre> genres;
-
-    @ElementCollection
-    @CollectionTable(name = "artifact_reviews", joinColumns = @JoinColumn(name = "artifact_id"))
+    @OneToMany(mappedBy = "bibliographicArtifact", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToOne
     private BookshelfLocation location;
-
-    @Embeddable
-    public static class Review {
-        private String content;
-        private String reviewer;
-
-        @Column(name = "review_date")
-        private LocalDateTime reviewDate;
-
-        // Constructors
-        public Review() {
-        }
-
-        public Review(String content, String reviewer) {
-            this.content = content;
-            this.reviewer = reviewer;
-            this.reviewDate = LocalDateTime.now();
-        }
-
-        // Getters and Setters
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getReviewer() {
-            return reviewer;
-        }
-
-        public void setReviewer(String reviewer) {
-            this.reviewer = reviewer;
-        }
-
-        public LocalDateTime getReviewDate() {
-            return reviewDate;
-        }
-
-        public void setReviewDate(LocalDateTime reviewDate) {
-            this.reviewDate = reviewDate;
-        }
-    }
 
     /**
      * Default constructor.
@@ -164,12 +113,14 @@ public abstract class BibliographicArtifact {
         this.authors = authors;
     }
 
-    public List<Genre> getGenres() {
-        return genres;
+    public void addReview(Review review) {
+        reviews.add(review);
+        review.setBibliographicArtifact(this);
     }
 
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
+    public void removeReview(Review review) {
+        reviews.remove(review);
+        review.setBibliographicArtifact(null);
     }
 
     public List<Review> getReviews() {
@@ -187,4 +138,5 @@ public abstract class BibliographicArtifact {
     public void setLocation(BookshelfLocation location) {
         this.location = location;
     }
+
 }

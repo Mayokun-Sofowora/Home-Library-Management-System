@@ -32,7 +32,7 @@ public class DefaultSecurityConfig{
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll() // Allow access to static resources and login page
-                                .requestMatchers("/dashboard", "/index", "/members", "/loans", "add-member", "add-loan", "add-book", "add-journal", "book-details", "journal-details").authenticated() // Require authentication for these endpoints
+                                .requestMatchers("/dashboard", "/index", "/members", "/loans", "add-member", "add-loan", "add-book", "add-journal", "/books", "/journals").authenticated() // Require authentication for these endpoints
                                 .anyRequest().authenticated() // Ensure all other requests are authenticated
                 )
                 .formLogin(formLogin ->
